@@ -74,68 +74,73 @@ export default function Home() {
   return (
     <div className="flex flex-col justify-center items-center bg-cyan-400 h-[100vh]">
       <div className="font-bold text-2xl text-white">Todos</div>
-      <div className="flex flex-row ">
-        <div className="mt-10 col-auto">
-          <div className="flex flex-row mb-2">
-            <input
-              type="text"
-              name="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder="enter todo"
-              className="col-span-4 p-2 outline-none w-[400px]"
-            />
-            <button
-              onClick={handleAdd}
-              className="col-span-2 ml-2 bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Add
-            </button>
-          </div>
-          <div className="p-3 bg-gray-400">
-            {todos.length > 0 &&
-              todos.map((t) => {
-                return (
-                  <div className="flex flex-row items-center text-white" key={t.task_id}>
-                    <div>
-                      <input
-                        type="checkbox"
-                        name="complete"
-                        checked={t.complete}
-                        onChange={(e) =>
-                          handleUpdate(t.task_id, t.description, t.complete)
-                        }
-                        placeholder="enter todo"
+      <form onSubmit={handleAdd}>
+        <div className="flex flex-row ">
+          <div className="mt-10 col-auto">
+            <div className="flex flex-row mb-2">
+              <input
+                type="text"
+                name="description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="enter todo"
+                className="col-span-4 p-2 outline-none w-[400px]"
+              />
+              <button
+                onClick={handleAdd}
+                className="col-span-2 ml-2 bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded"
+              >
+                Add
+              </button>
+            </div>
+            <div className="p-3 bg-gray-400">
+              {todos.length > 0 &&
+                todos.map((t) => {
+                  return (
+                    <div
+                      className="flex flex-row items-center text-white"
+                      key={t.task_id}
+                    >
+                      <div>
+                        <input
+                          type="checkbox"
+                          name="complete"
+                          checked={t.complete}
+                          onChange={(e) =>
+                            handleUpdate(t.task_id, t.description, t.complete)
+                          }
+                          placeholder="enter todo"
+                          className={
+                            !t.complete
+                              ? "outline-none col-span-4 mr-4"
+                              : "line-through col-span-4 mr-4"
+                          }
+                        />
+                      </div>
+                      <div
                         className={
                           !t.complete
-                            ? "outline-none col-span-4 mr-4"
-                            : "line-through col-span-4 mr-4"
+                            ? "col-span-4"
+                            : "line-through font-semibold text-green-400 col-span-4"
                         }
-                      />
-                    </div>
-                    <div
-                      className={
-                        !t.complete
-                          ? "col-span-4"
-                          : "line-through font-semibold text-green-400 col-span-4"
-                      }
-                    >
-                      {t.description}
-                    </div>
-                    <div>
-                      <button
-                        className="col-span-4 text-red-500 ml-28 font-semibold text-xl"
-                        onClick={(e) => handleDelete(t.task_id)}
                       >
-                        X
-                      </button>
+                        {t.description}
+                      </div>
+                      <div>
+                        <button
+                          className="col-span-4 text-red-500 ml-28 font-semibold text-xl"
+                          onClick={(e) => handleDelete(t.task_id)}
+                        >
+                          X
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+            </div>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 }
